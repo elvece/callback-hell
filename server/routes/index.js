@@ -29,7 +29,7 @@ function hasJavascript(url, selector, cb){
 
 router.get('/hell', function(req, res, next) {
 
-  var test = hasJavascript(url.hacker, 'td.title a', function(err, results){
+  var test = hasJavascript(urls.hacker, 'td.title a', function(err, results){
     if (err) {
       console.log('something went wrong');
     }
