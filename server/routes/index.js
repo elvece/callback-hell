@@ -9,8 +9,8 @@ router.get('/hell', function(req, res, next) {
   var newUrl = 'https://news.ycombinator.com/';
   var newsHtml = request(newUrl, function (error, response, html){
     //parse html
-    var $ = cheerio.load(newsHtml);
-    var newTitle = $('td.title a').first().text();
+    var $ = cheerio.load(html);
+    var newsTitle = $('td.title a').first().text();
 
     //is javascript in the title
     var newsHasJavascript = newsTitle.match('javascript');
@@ -19,7 +19,14 @@ router.get('/hell', function(req, res, next) {
     if (!newsHasJavascript) {
       //request python.org, return something fun
       var pythonUrl = 'https://python.org';
+      var pythonHtml = request(pythonUrl, function(err, response, html){
 
+        var $ = cheerio.load(html);
+        var pythonLogo = $('img').attr('src');
+        res.send('<img src="https://python.org/'+pythonLogo+'">');
+
+
+      });
 
     } else {
       //request reddit, parsre, test if javascript is part of the title
