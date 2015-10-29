@@ -6,24 +6,39 @@ var cheerio=require("cheerio");
 
 router.get('/hell', function(req, res, next) {
   //ajax request
-  var url = 'https://news.ycombinator.com/';
-  var html = request(url, function (error, response, html){
+  var newUrl = 'https://news.ycombinator.com/';
+  var newsHtml = request(newUrl, function (error, response, html){
     //parse html
-    var $ = cheerio.load(html);
-    var title = $('td.title a').first().text();
+    var $ = cheerio.load(newsHtml);
+    var newTitle = $('td.title a').first().text();
 
     //is javascript in the title
-    var hasJavascript = title.match('javascript');
-    console.log('line 24', hasJavascript);
+    var newsHasJavascript = newsTitle.match('javascript');
+    // console.log('line 24', hasJavascript);
 
-    if (!hasJavascript) {
+    if (!newsHasJavascript) {
       //request python.org, return something fun
+      var pythonUrl = 'https://python.org';
+
+
     } else {
       //request reddit, parsre, test if javascript is part of the title
       //if yes
         //request mdn, return something fun
       //if no
         //request puthon.org, return something fun
+
+      //ajax request
+      var redditUrl = 'https://www.reddit.com/r/Web_Development/';
+      var redditHtml = request(redditUrl, function(err, response, html){
+        //parse html
+        var $ = cheerio.load(html);
+        var redditTitle = $('a.title').first().text();
+
+        //is javascript in the title
+        var redditHasJavascript = redditTitle.match('javascript');
+        // console.log('right here', redditHasJavascript);
+      });
     }
   });
 });
